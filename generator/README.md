@@ -102,3 +102,86 @@ $ sudo docker push localhost:5001/generateDate
 run docker
 ```
 sudo docker run -p 5000:5000 localhost:5001/generateDate:latest
+```
+**verify:**
+docker image ls
+
+**3. Install MetalLB**
+ We use metalLB for load balancing.
+> MetalLB is a networking service for Kubernetes that allows you to point multiple pods in a Kubernetes cluster to a single domain name or IP. MetalLB uses several types of loopbacks and spokes to distribute traffic to pods.
+
+**install Helm**
+```
+wget https://get.helm.sh/helm-v3.13.3-linux-arm64.tar.gz
+tar -zxvf  helm-v3.13.3-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin/helm
+```
+**install metalLB**
+```
+helm repo add metallb https://metallb.github.io/metallb
+helm install metallb metallb/metallb
+```
+**4. Deploying the Python Application in Kubernetes**
+To run your Flask application in Kubernetes, you need to create a deployment. A deployment is defined in a YAML file and specifies details like the Docker image for the application, the number of replicas, and other settings. In Kubernetes, a deployment manages a set of identical pods, where each pod represents a single instance of a running process in a cluster.
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: generatorDate-deployment
+spec:
+ replicas: 3 # Set the desired number of replicas (pods) for your application
+ selector:
+  matchLabels:
+   app: generateDate
+ template:
+  metadata:
+   labels:
+    app: generateDate
+  spec:
+   containers:
+   - name: generateDate
+     image: localhost:5001/generateDate # Replace with your actual Docker image name
+     ports:
+     - containerPort: 5000
+```
+**Run the kubectl command to apply the deployment**
+```
+kubectl create deployment generatorDate-server --image=localhost:5001/generateDate:latest
+kubectl port-forward <pod_name> 5000:5000
+
+# stop and remove deployment
+kubectl delete pod <pod_name>
+kubectl delete deployment generatorDate-server
+```
+**5. Exposing the Deployment as a Service**
+To make the Flask app accessible from outside the Kubernetes cluster, create a service to expose the deployment.
+
+In Kubernetes, a service is an abstraction layer that enables communication between a set of pods and external clients. It provides a stable IP address and DNS name for a set of pods, so that other pods or external clients can reliably access the application running in the pod. A service can have different types, such as ClusterIP, NodePort, and LoadBalancer.
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: generateDate-service
+  labels:
+    app: generateDate
+spec:
+  type: LoadBalancer
+  selector:
+    app: generateDate
+  ports:
+    - port: 5000
+      protocol: TCP
+      targetPort: 5000
+```
+**Run the kubectl command to apply the service**
+$kubectl apply -f generateDate-service.yaml
+**6. running all manifests and checking result**
+```
+$kubectl apply -f kubernetes/
+$kubectl get service generateDate-service
+```
+This command returns the external IP address of the LoadBalancer service. You can use it to access the Flask REST API from a web browser or HTTP client outside the Kubernetes cluster.
+**result**
+```
+http://<EXTERNAL_IP_ADDRESS>:80
+```
