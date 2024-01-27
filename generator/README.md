@@ -1,5 +1,5 @@
 # Step1 : Generate Data
-In this part, a series of synthetic data is created through the **generator.py** file and must be placed in an API point that will be given to the next steps for data processing.
+In this part, a series of synthetic data is created through the **generator.py** file and must be placed in an API endpoint that will be given to the next steps for data processing.
 
 ## generator.py🪢
 The **generator.py** script simulates financial data and sends it to an API endpoint. It generates stock prices, order book data, news sentiment, market data, and economic indicators. The script uses a single core to ensure maximum performance.
@@ -18,6 +18,19 @@ The generate_additional_data() function generates additional data types, such as
 
 5. Send Data to API:
 The send_data() function sends the generated data to the API endpoint in JSON format.
+## Preparing the Python Application for Deployment 🪡
+instead of using API endpoint, we can use Flask application:
+```
+from flask import Flask, jsonify
+app = Flask(__name__)
+
+
+@app.route("/")
+def get_data():
+    data = generate_additional_data()
+    return jsonify(data)
+```
+The Flask application, on the other hand, is used to expose the data for direct consumption. The @app.route("/") decorator defines a GET endpoint that will return the generated data in JSON format. This endpoint can be accessed by sending a GET request to the URL http://localhost:5000.
 
 ## manager.sh🎛️
 To run generator.py file and manage it, we need this file.
@@ -47,3 +60,18 @@ This function stops the Python script, generator.py, by using pkill -f to kill a
 ```
 pkill -f $SCRIPT_NAME
 ```
+## Run🔧
+So,run this instruction in the terminal :
+```
+cd ./home/***/project
+./manager.sh init
+#activating the virtual environment
+
+./manager.sh start
+# Run generator.py
+
+./manager.sh stop
+#stop generator.py
+```
+# Docker 🪄
+
