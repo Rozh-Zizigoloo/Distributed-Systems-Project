@@ -29,3 +29,11 @@ In this project, we have to process financial data in real time.
 - generates real-time trading signals.
 
 ![diagram](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/assets/156912661/a62b2e8c-d80e-40b7-960c-dc01e24f0842)
+
+## teammate 
+- [Hamidreza SayyadDaryabakhsh](https://github.com/iHRSd)
+## References
+
+- [Source](https://github.com/Msiavashi/ds-course-project-fall-2023)
+- [Deploying a Python Application with Kubernetes](https://komodor.com/blog/deploying-a-python-application-with-kubernetes/)
+- [Using Flask to Build a Simple API]([https://medium.com/@livingstone.s.e/using-ebpf-to-analyze-why-kubernetes-nodeport-services-timeout-bc912e7ddc83](https://betterprogramming.pub/setting-up-a-simple-api-b3b00bc026b4)https://betterprogramming.pub/setting-up-a-simple-api-b3b00bc026b4)
