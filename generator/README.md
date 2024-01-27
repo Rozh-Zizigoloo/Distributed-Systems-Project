@@ -74,4 +74,31 @@ cd ./home/***/project
 #stop generator.py
 ```
 # Docker 🪄
+**1. Packaging the Application as a Docker Image**
+A Dockerfile contains instructions for building a Docker image, which facilitates a consistent and reproducible environment for Kubernetes deployment.
+```
+FROM python:3.7-slim-buster
 
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY generator.py .
+
+CMD ["python", "generator.py"]
+EXPOSE 5000
+```
+It sets up a Python environment, copies requirements.txt and generator.py to /app, installs the required packages, and specifies the command to run the Flask app on port 5000.
+**2. Pushing the Image to a Container Registry**
+Build the Docker image with the following command:
+```
+$ sudo docker build -t generateDate .
+```
+Tag the Docker image using the following command:
+```
+$ sudo docker tag generateDate localhost:5001/generateDate
+$ sudo docker push localhost:5001/generateDate
+```
+run docker
+```
+sudo docker run -p 5000:5000 localhost:5001/generateDate:latest
