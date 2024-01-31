@@ -64,13 +64,13 @@ pkill -f $SCRIPT_NAME
 So,run this instruction in the terminal :
 ```
 cd ./home/***/project
-./manager.sh init
+bash manager.sh init
 #activating the virtual environment
 
-./manager.sh start
+bash manager.sh start
 # Run generator.py
 
-./manager.sh stop
+bash manager.sh stop
 #stop generator.py
 ```
 # Docker 🪄
