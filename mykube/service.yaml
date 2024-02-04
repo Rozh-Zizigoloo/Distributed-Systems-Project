@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: generatedate-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: generatedate
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+  - name: generatedate
+    protocol: TCP
+    port: 5000
+    targetPort: 5000
+    # If you set the `spec.type` field to `NodePort` and you want a specific port number,
+    # you can specify a value in the `spec.ports[*].nodePort` field.
+   
