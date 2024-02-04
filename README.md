@@ -29,7 +29,7 @@ In this project, we have to process financial data in real time.
 - calculates the mandatory trading indicators
 - generates real-time trading signals.
 
-![diagram](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/diagram.drawio.svg)
+![diagram](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/diagram.drawio.svg)
 
 
 # Step1 : Generate Data
@@ -109,7 +109,7 @@ bash manager.sh start
 bash manager.sh stop
 #stop generator.py
 ```
-![manager.sh_code](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-01-30%20154618.png)
+![manager.sh_code](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-01-30%20154618.png)
 # Docker 🪄
 
 **1. Packaging the Application as a Docker Image**🎁
@@ -135,7 +135,7 @@ Build the Docker image with the following command:
 ```
 sudo docker build -t generatedate .
 ```
-![build_docker_image](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-01-31%20190901.png)
+![build_docker_image](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-01-31%20190901.png)
 
 Tag the Docker image using the following command:
 ```
@@ -148,12 +148,12 @@ run docker
 ```
 sudo docker run -p 5000:5000 localhost:5000/generatedate
 ```
-![build_container](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-01-31%20192109.png)
+![build_container](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-01-31%20192109.png)
 **verify:**
 
 docker image ls
 
-![output_container](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-01-31%20192031.png)
+![output_container](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-01-31%20192031.png)
 
 **3. Install minikube and MetalLB** 🐋
 
@@ -208,7 +208,7 @@ kubectl apply -f metallb-native.yaml
 ````
 
 
-![build_container](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-01%20193015.png)
+![build_container](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-01%20193015.png)
 
 **4. Deploying the Python Application in Kubernetes**🕹️
 
@@ -239,14 +239,14 @@ spec:
 ```
 kubectl create deployment generatordate-server --image=localhost:5100/generatedate:latest
 ```
-![generatedate-server](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-01%20194151.png)
+![generatedate-server](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-01%20194151.png)
 
 **verify**
 ```
 kubectl get pods
 ```
 
-![get pods](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-01%20194705.png)
+![get pods](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-01%20194705.png)
 
 
 **activating metalLB addon**
@@ -255,11 +255,11 @@ After start minikube, we must activate the metallb addon. To view all the availa
 ```
 minikube addons list
 ```
-![addon list](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20134823.png)
+![addon list](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20134823.png)
 
 > Addons are activated with minikube addons enable:
 
-![metallb active](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20135516.png)
+![metallb active](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20135516.png)
 
 
 **stop and remove deployment**
@@ -268,7 +268,7 @@ kubectl delete pod <pod_name>
 kubectl delete deployment generatordate-server
 ```
 
-![remove](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20151200.png)
+![remove](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20151200.png)
 
 **5. Exposing the Deployment as a Service**🧮
 
@@ -326,7 +326,7 @@ data:
 $kubectl apply -f mykube/
 ```
 
-![apply](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20152818.png)
+![apply](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20152818.png)
 
 ```
 $kubectl get service generatedate-service
@@ -341,7 +341,7 @@ http://<EXTERNAL_IP_ADDRESS>:
 ```
 for result, minikube ip is 172.18.0.1 and docker ip is 172.17.0.1. So , when we go to the minikube ssh and "crul 172.18.0.1", we can see result(dataset) :
 
-![result](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-03%20215257.png)
+![result](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-03%20215257.png)
 
 
 ![Screenshot 2024-02-03 220225](https://github.com/iHRSd/ds-course-project-fall-2023/assets/156912661/0e8c9258-e396-4bba-b3b9-b10e56c0dd1e)
@@ -361,7 +361,7 @@ we need to pull a Kafka image and integrate it into this setup for real-time dat
 docker pull confluentinc/cp-kafka:latest
 ```
 
-![pull kafka](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20182816.png)
+![pull kafka](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20182816.png)
 
 **2. Create a Kafka Deployment:**
 
@@ -436,11 +436,11 @@ spec:
 kubectl apply -f kafka/
 ```
 
-![apply kafka](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20184052.png)
+![apply kafka](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20184052.png)
 
 **result**🎥
 
-![result](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/images/Screenshot%202024-02-02%20184209.png)
+![result](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/images/Screenshot%202024-02-02%20184209.png)
 
 
 **5. Deploying Kafka Connect:**
@@ -451,7 +451,7 @@ Ensure to update the BOOTSTRAP_SERVERS environment variable in the deployment to
   value: http://kafka:9092
 ```
 according to this command ,we must update generator.py .
-we create [generator-update.py](https://github.com/iHRSd/ds-course-project-fall-2023/blob/main/generator-update.py)
+we create [generator-update.py](https://github.com/Rozh-Zizigoloo/Distributed-Systems-Project/blob/main/generator-update.py)
 
 and for this file we use confluent_kafka library,that we run this command:
 ```
